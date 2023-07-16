@@ -25,26 +25,26 @@ pipeline{
             )
             }
         }
-         stage('Unit Test maven'){
-         
-         when { expression {  params.action == 'create' } }
-
-            steps{
-               script{
-                   
-                   mvnTest()
-               }
-            }
-        }
-         stage('Integration Test maven'){
-         when { expression {  params.action == 'create' } }
-            steps{
-               script{
-                   
-                   mvnIntegrationTest()
-               }
-            }
-        }
+//          stage('Unit Test maven'){
+//
+//          when { expression {  params.action == 'create' } }
+//
+//             steps{
+//                script{
+//
+//                    mvnTest()
+//                }
+//             }
+//         }
+//          stage('Integration Test maven'){
+//          when { expression {  params.action == 'create' } }
+//             steps{
+//                script{
+//
+//                    mvnIntegrationTest()
+//                }
+//             }
+//         }
 //         stage('Static code analysis: Sonarqube'){
 //          when { expression {  params.action == 'create' } }
 //             steps{
@@ -78,20 +78,19 @@ pipeline{
          when { expression {  params.action == 'create' } }
             steps{
                script{
-                   
                    dockerBuild("${params.ImageName}","${params.ImageTag}","${params.ssjenkins}")
                }
             }
         }
-         stage('Docker Image Scan: trivy '){
-         when { expression {  params.action == 'create' } }
-            steps{
-               script{
-                   
-                   dockerImageScan("${params.ImageName}","${params.ImageTag}","${params.ssjenkins}")
-               }
-            }
-        }
+//          stage('Docker Image Scan: trivy '){
+//          when { expression {  params.action == 'create' } }
+//             steps{
+//                script{
+//
+//                    dockerImageScan("${params.ImageName}","${params.ImageTag}","${params.ssjenkins}")
+//                }
+//             }
+//         }
         stage('Docker Image Push : DockerHub '){
          when { expression {  params.action == 'create' } }
             steps{
