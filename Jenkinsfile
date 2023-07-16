@@ -78,7 +78,7 @@ pipeline{
          when { expression {  params.action == 'create' } }
             steps{
                script{
-                   dockerBuild("${params.ImageName}","${params.ImageTag}","${params.ssjenkins}")
+                   dockerBuild("${params.ImageName}","${params.ImageTag}","${params.dockerHubUser}")
                }
             }
         }
