@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.jenkins</groupId>
-	<artifactId>surjeetjenkins</artifactId>
+	<artifactId>ssjenkins</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>ssjenkins</name>
 	<description>surjeetjenkins project for Spring Boot</description>
