@@ -114,7 +114,7 @@ pipeline{
             steps{
                script{
                    
-                   dockerImageCleanup("${params.ImageName}","${params.ImageTag}","${params.ssjenkins}")
+                   dockerImageCleanup("${params.ImageName}","${params.ImageTag}","${params.dockerHubUser}")
                }
             }
         }      
