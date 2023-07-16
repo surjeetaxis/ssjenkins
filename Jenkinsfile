@@ -19,7 +19,7 @@ pipeline{
             steps{
             gitCheckout(
                 branch: "master",
-                url: "https://github.com/surjeetaxis/ssjenkins.gitt"
+                url: "https://github.com/surjeetaxis/ssjenkins.git"
             )
             }
         }
