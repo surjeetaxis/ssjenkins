@@ -70,7 +70,7 @@ pipeline{
          when { expression {  params.action == 'create' } }
             steps{
                script{
-                   dockerImageScan("${params.ImageName}","${params.ImageTag}","${params.ssjenkins}")
+                   dockerImageScan("${params.ImageName}","${params.ImageTag}","${params.dockerHubUser}")
                }
             }
         }
