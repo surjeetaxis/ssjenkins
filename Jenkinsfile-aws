@@ -7,7 +7,7 @@ pipeline{
         string(name: 'ImageTag', description: "tag of the docker build", defaultValue: 'v1')
         string(name: 'dockerHubUser', description: "name of the Application", defaultValue: 'surjeetcse')
     }
-    stages{    
+    stages{
         stage('Git Checkout'){
             when { expression {  params.action == 'create' } }
             steps{
@@ -18,7 +18,6 @@ pipeline{
          when { expression {  params.action == 'create' } }
             steps{
                script{
-
                    mvnTest()
                }
             }
@@ -65,31 +64,5 @@ pipeline{
                }
             }
         }
-         stage('Docker Image Scan: trivy '){
-         when { expression {  params.action == 'create' } }
-            steps{
-               script{
-                   dockerImageScan("${params.ImageName}","${params.ImageTag}","${params.dockerHubUser}")
-               }
-            }
-        }
-        stage('Docker Image Push : DockerHub '){
-         when { expression {  params.action == 'create' } }
-            steps{
-               script{
-
-                   dockerImagePush("${params.ImageName}","${params.ImageTag}","${params.dockerHubUser}")
-               }
-            }
-        }
-        stage('Docker Image Cleanup : DockerHub '){
-         when { expression {  params.action == 'create' } }
-            steps{
-               script{
-                   
-                   dockerImageCleanup("${params.ImageName}","${params.ImageTag}","${params.dockerHubUser}")
-               }
-            }
-        }      
     }
 }
