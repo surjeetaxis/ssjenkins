@@ -36,7 +36,7 @@ pipeline{
          when { expression {  params.action == 'create' } }
             steps{
                script{
-                   def SonarQubecredentialsId = 'webhook'
+                   def SonarQubecredentialsId = 'sonarlocal-api'
                    statiCodeAnalysis(SonarQubecredentialsId)
                }
             }
@@ -45,7 +45,7 @@ pipeline{
          when { expression {  params.action == 'create' } }
             steps{
                script{
-                   def SonarQubecredentialsId = 'webhook'
+                   def SonarQubecredentialsId = 'sonarlocal-api'
                    QualityGateStatus(SonarQubecredentialsId)
                }
             }
