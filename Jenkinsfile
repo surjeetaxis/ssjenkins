@@ -3,9 +3,9 @@ pipeline{
     agent any
     parameters{
         choice(name: 'action', choices: 'create\ndelete', description: 'Choose create/Destroy')
-        string(name: 'ImageName', description: "name of the docker build", defaultValue: 'ssjenkins')
-        string(name: 'ImageTag', description: "tag of the docker build", defaultValue: 'v1')
-        string(name: 'dockerHubUser', description: "name of the Application", defaultValue: 'surjeetcse')
+        string(name: 'aws_account_id', description: "name of aws account id", defaultValue: '093335397012')
+        string(name: 'region', description: "name of the region", defaultValue: 'eu-north-1')
+        string(name: 'ecr_repo_name', description: "name of the ECR", defaultValue: 'ssjeknins')
     }
     stages{
         stage('Git Checkout'){
@@ -40,11 +40,11 @@ pipeline{
                }
             }
         }
-        stage('Docker Image Build'){
+        stage('Docker Image Build ECR'){
          when { expression {  params.action == 'create' } }
             steps{
                script{
-                   dockerBuild("${params.ImageName}","${params.ImageTag}","${params.dockerHubUser}")
+                   dockerBuild("${params.aws_account_id}","${params.region}","${params.ecr_repo_name}")
                }
             }
         }
@@ -52,7 +52,7 @@ pipeline{
 //          when { expression {  params.action == 'create' } }
 //             steps{
 //                script{
-//                    dockerImageScan("${params.ImageName}","${params.ImageTag}","${params.dockerHubUser}")
+//                    dockerImageScan("${params.aws_account_id}","${params.region}","${params.ecr_repo_name}")
 //                }
 //             }
 //         }
@@ -60,8 +60,7 @@ pipeline{
          when { expression {  params.action == 'create' } }
             steps{
                script{
-
-                   dockerImagePush("${params.ImageName}","${params.ImageTag}","${params.dockerHubUser}")
+                   dockerImagePush("${params.aws_account_id}","${params.region}","${params.ecr_repo_name}")
                }
             }
         }
@@ -69,8 +68,7 @@ pipeline{
          when { expression {  params.action == 'create' } }
             steps{
                script{
-
-                   dockerImageCleanup("${params.ImageName}","${params.ImageTag}","${params.dockerHubUser}")
+                   dockerImageCleanup("${params.aws_account_id}","${params.region}","${params.ecr_repo_name}")
                }
             }
         }
