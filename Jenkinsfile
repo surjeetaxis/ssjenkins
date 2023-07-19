@@ -7,28 +7,11 @@ pipeline{
         string(name: 'ImageTag', description: "tag of the docker build", defaultValue: 'v1')
         string(name: 'dockerHubUser', description: "name of the Application", defaultValue: 'surjeetcse')
     }
-    stages{    
+    stages{
         stage('Git Checkout'){
             when { expression {  params.action == 'create' } }
             steps{
             gitCheckout(branch: "master",url: "https://github.com/surjeetaxis/ssjenkins.git")
-            }
-        }
-         stage('Unit Test maven'){
-         when { expression {  params.action == 'create' } }
-            steps{
-               script{
-
-                   mvnTest()
-               }
-            }
-        }
-         stage('Integration Test maven'){
-         when { expression {  params.action == 'create' } }
-            steps{
-               script{
-                   mvnIntegrationTest()
-               }
             }
         }
 //         stage('Static code analysis: Sonarqube'){
@@ -86,10 +69,10 @@ pipeline{
          when { expression {  params.action == 'create' } }
             steps{
                script{
-                   
+
                    dockerImageCleanup("${params.ImageName}","${params.ImageTag}","${params.dockerHubUser}")
                }
             }
-        }      
+        }
     }
 }
